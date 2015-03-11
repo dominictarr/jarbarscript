@@ -12,9 +12,12 @@ functions, or loops. Just < > <= >= == === != !== ! ?: () . and ,
 Okay, so you just implemented a very partial javascript interpreter _in javascript_ are you crazy?
 what is the point of this?
 
-Maybe, and quite often you want user provided code, but you do not
+Maybe. And sometimes you want user provided code, but you do not
 want to run arbitary untrusted code. This provides a flexible, familiar
 syntax for filtering stuff, but does not let a user provided function own you.
+
+Also, maybe you want to be able to introspect that javascript efficiently,
+and then do something clever with it...
 
 All jarbarscript code has predictable execution time, because there are
 no loops or recursion!
