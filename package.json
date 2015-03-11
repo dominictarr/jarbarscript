@@ -1,0 +1,22 @@
+{
+  "name": "jarbarscript",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/jarbarscript",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/jarbarscript.git"
+  },
+  "dependencies": {
+    "acorn": "~0.12.0"
+  },
+  "devDependencies": {
+    "tape": "~3.5.0"
+  },
+  "scripts": {
+    "prepublish": "npm ls &&  npm test",
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}
