@@ -23,9 +23,11 @@ All jarbarscript code has predictable execution time, because there are
 no loops or recursion!
 
 ``` js
-eval('foo < bar', {foo: 1, bar: 2}) => true
-eval('foo < bar ? 1 : -1', {foo: 1, bar: 2}) => 1
-eval('foo.bar', {qux: {bar: 'QUX'}}) => 'QUX'
+var jarbar = require('jarbarscript')
+
+jarbar('foo < bar', {foo: 1, bar: 2}) => true
+jarbar('foo < bar ? 1 : -1', {foo: 1, bar: 2}) => 1
+jarbar('foo.bar', {qux: {bar: 'QUX'}}) => 'QUX'
 ```
 
 etc,
