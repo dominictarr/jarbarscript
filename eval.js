@@ -68,6 +68,19 @@ var operators = {
   },
   '[]': function () {
     return [].slice.call(arguments).map(E.bind(this))
+  },
+  '()': function () {
+    var fun = arguments[0]
+    var context = fun[0] === '$' && fun.length > 2
+      ? E(fun.slice(0, fun.length - 1), this)
+      : undefined
+
+    return E(fun, this)
+      .apply(
+        context,
+        [].slice.call(arguments, 1)
+        .map(function (arg) { return E(arg, this) })
+      )
   }
 }
 
@@ -78,16 +91,19 @@ function E(list, env) {
   env = env || this
   if(!isArray(list)) return list
 
-  var name = list.shift()
+  var name = list[0]
   var op = operators[name]
-  if(!op) throw new Error('unknown operator:' + name)
+  if(!op)
+    throw new Error('unknown operator:' + name)
+
   if(!op.length) //operator takes an arbitary number of args. only [] so far)
 
   if(op.length && op.length !== list.length)
     throw new Error('operator:'+name + ' expects ' + op.length + ' arguments, but got:' + list.length)
 
-  if(!list.length) throw new Error('operator:'+name + ' must have at least 1 argument')
+  if(!list.length)
+    throw new Error('operator:'+name + ' must have at least 1 argument')
 
-  return op.apply(env, list)
+  return op.apply(env, list.slice(1))
 }
 
