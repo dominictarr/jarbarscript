@@ -27,7 +27,7 @@ var jarbar = require('jarbarscript')
 
 jarbar('foo < bar', {foo: 1, bar: 2}) => true
 jarbar('foo < bar ? 1 : -1', {foo: 1, bar: 2}) => 1
-jarbar('foo.bar', {qux: {bar: 'QUX'}}) => 'QUX'
+jarbar('foo.bar', {foo: {bar: 'QUX'}}) => 'QUX'
 ```
 
 etc,
