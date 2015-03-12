@@ -70,17 +70,24 @@ var operators = {
     return [].slice.call(arguments).map(E.bind(this))
   },
   '()': function () {
+    var env = this
     var fun = arguments[0]
-    var context = fun[0] === '$' && fun.length > 2
-      ? E(fun.slice(0, fun.length - 1), this)
-      : undefined
+    var context
+    if(fun[0] === '$' && fun.length > 2) {
+      context = E(fun.slice(0, fun.length - 1), this)
+      fun = context[fun[fun.length - 1]]
+    }
+    else if(fun[0] === '.') {
+      context = E(fun[1], this)
+      fun = context[fun[2]]
+    }
+    else
+      fun = E(fun, this)
 
-    return E(fun, this)
-      .apply(
-        context,
-        [].slice.call(arguments, 1)
-        .map(function (arg) { return E(arg, this) })
-      )
+    var args = [].slice.call(arguments, 1)
+        .map(function (arg) { return E(arg, env) })
+
+    return fun.apply(context, args)
   }
 }
 
