@@ -124,3 +124,25 @@ tape('object literal', function (t) {
 
   t.end()
 })
+
+tape('call a function', function (t) {
+
+
+  t.deepEqual(E(['()', ['$', 'min'], 1, 2], Math), 1)
+
+  t.deepEqual(E(
+    ['()',
+      ['.',
+        ['[]', 1, 3, 2],
+        'reduce'
+      ],
+      //you can't do [...].reduce(Math.max, 0)
+      //because javascript...
+      function (a, b) {
+        return Math.max(a, b)
+      },
+      0
+    ], Math), 3)
+
+  t.end()
+})
