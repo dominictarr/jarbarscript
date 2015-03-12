@@ -59,6 +59,5 @@ function ast (esp) {
 }
 
 module.exports = function (code) {
-  console.log(code)
   return ast(esprima.parse(code))
 }
