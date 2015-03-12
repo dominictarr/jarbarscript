@@ -41,13 +41,10 @@ var operators = {
   '!!': function (a) {
     return !!E(a, this)
   },
-  '$': function (a) {
-    return this[a]
-  },
   '.': function (a, b) {
     return E(a, this)[E(b, this)]
   },
-  '$.': function () {
+  '$': function () {
     var l = arguments.length
     var env = this
     for(var i = 0; i < l; i++)
@@ -60,6 +57,17 @@ var operators = {
     for(var i = 0; i < l; i++)
       last= E(arguments[i], this)
     return last
+  },
+  '{}': function () {
+    var l = arguments.length
+    var obj = {}
+    for(var i = 0; i < l; i += 2) {
+      obj[arguments[i]] = E(arguments[i+1], this)
+    }
+    return obj
+  },
+  '[]': function () {
+    return [].slice.call(arguments).map(E.bind(this))
   }
 }
 
@@ -67,6 +75,7 @@ var isArray = Array.isArray
 
 //eval
 function E(list, env) {
+  env = env || this
   if(!isArray(list)) return list
 
   var name = list.shift()

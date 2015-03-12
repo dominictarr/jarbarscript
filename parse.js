@@ -28,14 +28,23 @@ var types = {
     var prop = esp.property.type === 'Identifier' ? esp.property.name : ast(esp.property)
     var obj = ast(esp.object)
     if(obj[0] == '$' && !isArray(prop))
-      return ['$.', obj[1], prop]
-    else if(obj[0] == '$.' && !isArray(prop))
       return obj.concat(prop)
     else
       return ['.', obj, prop]
   },
   SequenceExpression: function (esp) {
     return [','].concat(esp.expressions.map(ast))
+  },
+  ObjectExpression: function (esp) {
+    var a = ['{}']
+    esp.properties.forEach(function (prop) {
+      a.push(prop.key.name || prop.key.value)
+      a.push(ast(prop.value))
+    })
+    return a
+  },
+  ArrayExpression: function (esp) {
+    return ['[]'].concat(esp.elements.map(ast))
   }
 }
 
