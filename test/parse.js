@@ -16,13 +16,13 @@ tape('parse expressions', function (t) {
   )
 
   is('foo[0]',
-    ['$.', 'foo', 0]
+    ['$', 'foo', 0]
   )
 
 
   //special case for accessing into a named path
   is('foo.bar.baz',
-    ['$.', 'foo', 'bar', 'baz']
+    ['$', 'foo', 'bar', 'baz']
   )
 
   is('(foo ? bar : baz).qux',
@@ -42,5 +42,27 @@ tape('parse expressions', function (t) {
     [',', ['$', 'foo'], ['$', 'bar'], ['$', 'baz']]
   )
 
+  is('({foo: 1, bar: 2})',
+    ['{}', 'foo', 1, 'bar', 2]
+  )
+
+  is("({1: 'foo', 2: 'bar' })",
+    ['{}', 1, 'foo', 2, 'bar']
+  )
+
+  is("({'***': 'foo', '???': 'bar' })",
+    ['{}', '***', 'foo', '???', 'bar']
+  )
+
+  t.equal(E(parse('({qux: 1, bar: 2})["qux"]')), 1)
+
+  is("([1, 'foo', 2, 'bar' ])",
+    ['[]', 1, 'foo', 2, 'bar']
+  )
+
+  t.equal(E(parse('(["qux", 1, "bar", 2])[2]')), 'bar')
+
   t.end()
 })
+
+

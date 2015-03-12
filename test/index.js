@@ -114,3 +114,13 @@ tape('integrate', function (t) {
 
 })
 
+
+tape('object literal', function (t) {
+
+  t.deepEqual(E(['{}', 'foo', 1, 'bar', 2]), {foo:1, bar: 2})
+  t.deepEqual(E(['[]', 'foo', 1, 'bar', 2]), ['foo', 1, 'bar', 2])
+
+  t.equal(E(['.', ['{}', 'foo', 1, 'bar', 2], 'bar']), 2)
+
+  t.end()
+})
