@@ -7,7 +7,7 @@ pronounciation guide:
 https://twitter.com/thoward37/status/575740274560753664
 
 Basically, you can implement expressions, but not assignment, declaration,
-functions, or loops. Just < > <= >= == === != !== ! ?: () . and ,
+functions, or loops. Just < > <= >= == === != !== ! ?: () . , {} (object literals) and [] array literals (and object access).
 
 Okay, so you just implemented a very partial javascript interpreter _in javascript_ are you crazy?
 what is the point of this?
