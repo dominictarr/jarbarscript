@@ -45,6 +45,9 @@ var types = {
   },
   ArrayExpression: function (esp) {
     return ['[]'].concat(esp.elements.map(ast))
+  },
+  CallExpression: function (esp) {
+    return ['()', ast(esp.callee)].concat(esp.arguments.map(ast))
   }
 }
 
